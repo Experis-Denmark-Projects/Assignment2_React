@@ -21,11 +21,12 @@ function App() {
     <Routes>
       <Route path='/' element={<Navigation/>}>
         <Route index element={<Login/>}/>
-        <Route path='/translation' element={<Translation/>}/>
+        
+           <Route path='/translation/:userId' element={<Translation/>}/>
+      
         <Route path='/profile' element={<Profile/>}/>
       </Route>
     </Routes>
-    
   );
 }
 
