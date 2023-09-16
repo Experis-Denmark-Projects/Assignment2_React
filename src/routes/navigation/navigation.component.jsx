@@ -1,7 +1,6 @@
-
+import { Outlet } from 'react-router-dom';
 import { Fragment, useContext } from 'react';
-import { Link, NavLink, Outlet } from 'react-router-dom'
-import { UserContext } from '../../contexts/user-context';
+import { UserContext } from '../../contexts/user.context';
 
 
 const Navigation = () => {
@@ -10,9 +9,6 @@ const Navigation = () => {
     // Use useEffect life cycle hook to bind userAuth state.
     //let userAuth = false;
     //{userAuth} && <Link to='/input'></Link>
-
-
-
 
     return(
         <Fragment>

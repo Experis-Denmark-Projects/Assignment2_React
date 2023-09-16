@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import Input from "../../components/input/input.component";
-import { useState, useContext, useEffect } from "react"
+import { useState, useContext } from "react"
 import {ReactComponent as KeyboardIcon} from '../../assets/keyboard-solid.svg'
 import { IconContainer } from "./login.styles";
-import { UserContext } from "../../contexts/user-context";
+import { UserContext } from "../../contexts/user.context";
 
 const Login = () => {
 

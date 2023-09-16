@@ -1,13 +1,13 @@
-import { useContext, useState, Fragment } from "react";
-import { UserContext } from "../../contexts/user-context";
+import { useState, Fragment, useEffect } from "react";
 import {ReactComponent as KeyboardIcon} from '../../assets/keyboard-solid.svg'
 import { IconContainer } from "../../components/input/input.styles";
+import TranslationIcon  from "../../components/translation-icon/translation-icon.component"
 
 const Translation = () => {
     
     const [word, setWord] = useState({value: ""});
-    const {user} = useContext(UserContext);
-    let icons = [];
+    let [icons, setIcons] = useState([]);
+    //icons.push({ id: 'b', imagePath: '../../assets/individual_signs/b.png'});
     const handleWordChange = event => {
         setWord({ value: event.target.value})
     }
@@ -15,20 +15,15 @@ const Translation = () => {
     const handleRegisterSubmit = event => {
         event.preventDefault();
         icons = [];
-        for(let i = 0; i < word.length; i++){
-            let imagePath = `../../assets/individual_signs/${word.charAt(i)}.png`;
-            icons.push(imagePath);
+        const images = [];
+        for(let i = 0; i < word.value.length; i++){
+            images.push({id: word.value.charAt(i)});
         }
+        setIcons(images);
     }
 
-
-    
-    
-    
-    console.log(`user1:${user.id}`);
-   
     return(
-        <div>
+        <Fragment>
             <p>Translations</p>
             <form onSubmit={ handleRegisterSubmit }>
                 <IconContainer>
@@ -37,16 +32,12 @@ const Translation = () => {
                 <input type="text" value={ word.value } onChange={ handleWordChange } />
                 <button type="submit">Translate</button>
             </form>
-            <Fragment>
-                {
-                   icons.map(path => {
-                        return (<img src={path}></img>)
-                    }); 
-                }
-            </Fragment>
-            
-            
-        </div>
+            {   
+                icons.map((image) => 
+                    image && <TranslationIcon key={image.id} image={image}/>
+                )
+            }
+        </Fragment>
     );
 };
 

@@ -1,7 +1,6 @@
 import './App.css';
 
 import {Routes, Route} from 'react-router-dom'
-import { Fragment } from "react";
 
 // Import Route Components
 import Navigation from './routes/navigation/navigation.component';
