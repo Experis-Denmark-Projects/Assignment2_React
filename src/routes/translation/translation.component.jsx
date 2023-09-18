@@ -3,6 +3,9 @@ import {ReactComponent as KeyboardIcon} from '../../assets/keyboard-solid.svg'
 import { IconContainer } from "../../components/input/input.styles";
 import TranslationIcon  from "../../components/translation-icon/translation-icon.component"
 import { TranslationIconContainer } from "../../components/translation-icon/translation-icon.styles";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/user.context";
+import { putUser } from "../../utils/web-api.util";
 
 const Translation = () => {
     
@@ -14,6 +17,7 @@ const Translation = () => {
     let idCounter = 0;
     const [word, setWord] = useState({value: ""});
     let [icons, setIcons] = useState([]);
+    const { user } = useContext(UserContext);
 
     const handleWordChange = event => {
         setWord({ value: event.target.value})
@@ -23,14 +27,17 @@ const Translation = () => {
         event.preventDefault();
         icons = [];
         const images = [];
-        idCounter =0;
+        idCounter = 0;
         for(let i = 0; i < word.value.length; i++){
             images.push({id: word.value.charAt(i)});
         }
         setIcons(images);
 
-        fetch('');
-
+        if(user){
+            const translations = user.translations;
+            translations.push(word.value);
+            putUser(user.id, translations);
+        }
     }
 
     return(

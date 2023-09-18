@@ -7,7 +7,9 @@ export const getUserById = (userId, callback) => {
     .then(result => {
         callback(result);
     })
-    .catch(error => console.log(`error:${error}`));
+    .catch(error => {
+        console.log(`The following error occured: ${error}`)
+    });
 }
 
 export const postUserByName = (username, callback) => {
@@ -39,3 +41,30 @@ export const postUserByName = (username, callback) => {
         console.log(`The following error occured: ${error}`)
     })
 }
+
+export const putUser = (userId, translations) => {
+    fetch(`${apiUrl}/translations/${userId}`,{
+        method: 'PATCH',
+        headers: {
+            'X-API-Key': apiKey,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            translations: translations
+        })
+    })
+    .then(response => {
+        if(!response.ok) {
+            
+            throw new Error('Could not create user')
+        }
+        
+        return response.json();
+    })
+    .then(updatedUser => {
+        console.log(`translations for the user ${updatedUser.username}: ${updatedUser.translations}`);
+    })
+    .catch(error => {
+        console.log(`The following error occured: ${error}`)
+    });
+} 

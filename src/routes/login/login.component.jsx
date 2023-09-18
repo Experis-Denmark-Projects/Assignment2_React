@@ -19,12 +19,7 @@ const Login = () => {
     // Handle the form submission.
     const handleRegisterSubmit = async event => {
         event.preventDefault();
-
-        const apiUrl = 'https://bright-scrawny-glue.glitch.me/';
-        const apiKey = '1LWB0bJhVjsuppBbRUKuzZyH0ZogZwbCRO2J1zIJZCekoEppNpMKClEEwRb2OABW';
-
         const userId = localStorage.getItem(`${name.value}`);
-        
         /* If the User Id is stored locally navigate to translation page
         *  Otherwise, add a new user.
         */
@@ -34,40 +29,6 @@ const Login = () => {
                 navigate(`/translation/${userId}`);
             })
         }else{
-            
-            /* fetch(`${apiUrl}/translations`, {
-                method: 'POST',
-                headers: {
-                    'X-API-Key': apiKey,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: name.value,
-                    translations: []
-                })
-            })
-            .then(response => {
-                if(!response.ok) {
-                    
-                    throw new Error('Could not create user')
-                }
-                
-                return response.json();
-            })
-            .then(newUser => {
-                // newUser is the new user with an id.
-                console.log("muh")
-                localStorage.setItem(name.value, newUser.id);
-                console.log(`newUser:${newUser}`);
-                setUser(newUser);
-                navigate(`/translation/${newUser.id}`);
-            })
-            .catch(error => {
-                // Handle error
-                console.log("error bitch")
-                alert("Error")
-            }) */
-
             postUserByName(name.value, (newUser) => {
                 console.log(`newUser:${newUser}`);
                 localStorage.setItem(name.value, newUser.id);
@@ -75,10 +36,7 @@ const Login = () => {
                 navigate(`/translation/${newUser.id}`);
             });
         }
-
     }
-
-
 
     return(
         <div>
