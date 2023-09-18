@@ -34,9 +34,9 @@ const Translation = () => {
         setIcons(images);
 
         if(user){
-            const translations = user.translations;
-            translations.push(word.value);
-            putUser(user.id, translations);
+            //const translations = user.translations;
+            //translations.push(word.value);
+            putUser(user.id, [...user.translations, word.value]);
         }
     }
 
