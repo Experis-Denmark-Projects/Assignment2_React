@@ -1,8 +1,8 @@
 const TranslationIcon = ({image}) => {
     return (
-        <div>
+        //<div>
             <img src={require(`../../assets/individual_signs/${image.id}.png`)} alt={`${image.id}`}></img>
-        </div>
+        //</div>
     );
 };
 

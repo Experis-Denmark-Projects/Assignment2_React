@@ -1,14 +1,15 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Fragment, useContext } from 'react';
 import { UserContext } from '../../contexts/user.context';
 
 
 const Navigation = () => {
     const {user} = useContext(UserContext);
-    // TODO: Fetch user from WebAPI
-    // Use useEffect life cycle hook to bind userAuth state.
-    //let userAuth = false;
-    //{userAuth} && <Link to='/input'></Link>
+    const navigate = useNavigate();
+
+    const handleButtonClick = () => {
+        navigate(`/profile/${user.id}`);
+    };
 
     return(
         <Fragment>
@@ -19,7 +20,7 @@ const Navigation = () => {
                             Lost in Translation
                         </li>
                         {
-                           user !=null && <li>Welcome, {user.username}</li>
+                           user !=null && <button onClick={handleButtonClick}>Welcome, {user.username}. Click to view profile</button>
                         }
                     </ul>
                 </nav>

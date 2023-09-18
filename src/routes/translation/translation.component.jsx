@@ -25,11 +25,16 @@ const Translation = () => {
     
     const handleRegisterSubmit = event => {
         event.preventDefault();
+        console.log(word.value)
+        if(!word.value.toLowerCase().match('^[a-z]+$')){
+            alert("Please only lower case letters");
+            return;
+        }
         icons = [];
         const images = [];
         idCounter = 0;
         for(let i = 0; i < word.value.length; i++){
-            images.push({id: word.value.charAt(i)});
+            images.push({id: word.value.toLowerCase().charAt(i)});
         }
         setIcons(images);
 

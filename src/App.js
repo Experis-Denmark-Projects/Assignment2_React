@@ -23,7 +23,7 @@ function App() {
         
            <Route path='/translation/:userId' element={<Translation/>}/>
       
-        <Route path='/profile' element={<Profile/>}/>
+        <Route path='/profile/:userId' element={<Profile/>}/>
       </Route>
     </Routes>
   );
