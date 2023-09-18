@@ -17,7 +17,7 @@ const Translation = () => {
     let idCounter = 0;
     const [word, setWord] = useState({value: ""});
     let [icons, setIcons] = useState([]);
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     const handleWordChange = event => {
         setWord({ value: event.target.value})
@@ -34,9 +34,9 @@ const Translation = () => {
         setIcons(images);
 
         if(user){
-            //const translations = user.translations;
-            //translations.push(word.value);
-            putUser(user.id, [...user.translations, word.value]);
+            putUser(user.id, [...user.translations, word.value], (updatedUser) => {
+                setUser(updatedUser);
+            });
         }
     }
 

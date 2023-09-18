@@ -42,7 +42,7 @@ export const postUserByName = (username, callback) => {
     })
 }
 
-export const putUser = (userId, translations) => {
+export const putUser = (userId, translations, callback) => {
     fetch(`${apiUrl}/translations/${userId}`,{
         method: 'PATCH',
         headers: {
@@ -63,6 +63,7 @@ export const putUser = (userId, translations) => {
     })
     .then(updatedUser => {
         console.log(`translations for the user ${updatedUser.username}: ${updatedUser.translations}`);
+        callback(updatedUser);
     })
     .catch(error => {
         console.log(`The following error occured: ${error}`)

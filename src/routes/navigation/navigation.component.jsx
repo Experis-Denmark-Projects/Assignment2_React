@@ -23,9 +23,6 @@ const Navigation = () => {
                         }
                     </ul>
                 </nav>
-
-
-
             </div>
             <Outlet />
         </Fragment>
