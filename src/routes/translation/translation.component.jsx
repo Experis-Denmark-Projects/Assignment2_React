@@ -2,12 +2,19 @@ import { useState, Fragment, useEffect } from "react";
 import {ReactComponent as KeyboardIcon} from '../../assets/keyboard-solid.svg'
 import { IconContainer } from "../../components/input/input.styles";
 import TranslationIcon  from "../../components/translation-icon/translation-icon.component"
+import { TranslationIconContainer } from "../../components/translation-icon/translation-icon.styles";
 
 const Translation = () => {
     
+    /*
+    * idCounter is incremented for each element in icons.
+    * Thus, the id for each icon and the idCounter value are combined to form a unique key 
+    * passed to the key attribute in TranslationIcon.
+    */
+    let idCounter = 0;
     const [word, setWord] = useState({value: ""});
     let [icons, setIcons] = useState([]);
-    //icons.push({ id: 'b', imagePath: '../../assets/individual_signs/b.png'});
+
     const handleWordChange = event => {
         setWord({ value: event.target.value})
     }
@@ -16,6 +23,7 @@ const Translation = () => {
         event.preventDefault();
         icons = [];
         const images = [];
+        idCounter =0;
         for(let i = 0; i < word.value.length; i++){
             images.push({id: word.value.charAt(i)});
         }
@@ -33,9 +41,11 @@ const Translation = () => {
                 <button type="submit">Translate</button>
             </form>
             {   
-                icons.map((image) => 
-                    image && <TranslationIcon key={image.id} image={image}/>
-                )
+                <TranslationIconContainer>
+                    {icons.map((image) => 
+                        image && <TranslationIcon key={`${image.id}${idCounter++}`} image={image}/>
+                    )}
+                </TranslationIconContainer>
             }
         </Fragment>
     );
