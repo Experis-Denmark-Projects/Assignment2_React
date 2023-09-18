@@ -1,4 +1,4 @@
-import { useState, Fragment, useEffect } from "react";
+import { useState, Fragment } from "react";
 import {ReactComponent as KeyboardIcon} from '../../assets/keyboard-solid.svg'
 import { IconContainer } from "../../components/input/input.styles";
 import TranslationIcon  from "../../components/translation-icon/translation-icon.component"
@@ -28,6 +28,9 @@ const Translation = () => {
             images.push({id: word.value.charAt(i)});
         }
         setIcons(images);
+
+        fetch('');
+
     }
 
     return(

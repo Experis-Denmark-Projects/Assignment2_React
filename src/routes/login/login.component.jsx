@@ -3,6 +3,7 @@ import { useState, useContext } from "react"
 import {ReactComponent as KeyboardIcon} from '../../assets/keyboard-solid.svg'
 import { IconContainer } from "./login.styles";
 import { UserContext } from "../../contexts/user.context";
+import { getUser } from "../../utils/web-api.util";
 
 const Login = () => {
 
@@ -16,10 +17,9 @@ const Login = () => {
 
     const { user, setUser } = useContext(UserContext);
     // Handle the form submission.
-    const handleRegisterSubmit = event => {
+    const handleRegisterSubmit = async event => {
         event.preventDefault();
 
-        let flag = false;
         const apiUrl = 'https://bright-scrawny-glue.glitch.me/';
         const apiKey = '1LWB0bJhVjsuppBbRUKuzZyH0ZogZwbCRO2J1zIJZCekoEppNpMKClEEwRb2OABW';
 
@@ -29,18 +29,10 @@ const Login = () => {
         *  Otherwise, add a new user.
         */
         if(userId){
-            // Do fetch request
-            // Set user
-            fetch(`${apiUrl}/translations/${userId}`)
-            .then(response => response.json())
-            .then(result => {
+            getUser(userId, (result) => {
                 setUser(result);
-               
                 navigate(`/translation/${userId}`);
-                
             })
-            .catch(error => console.log(`error:${error}`));
-            
         }else{
             
             fetch(`${apiUrl}/translations`, {
