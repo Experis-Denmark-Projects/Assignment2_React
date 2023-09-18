@@ -3,7 +3,7 @@ import { useState, useContext } from "react"
 import {ReactComponent as KeyboardIcon} from '../../assets/keyboard-solid.svg'
 import { IconContainer } from "./login.styles";
 import { UserContext } from "../../contexts/user.context";
-import { getUser } from "../../utils/web-api.util";
+import { getUserById, postUserByName } from "../../utils/web-api.util";
 
 const Login = () => {
 
@@ -29,13 +29,13 @@ const Login = () => {
         *  Otherwise, add a new user.
         */
         if(userId){
-            getUser(userId, (result) => {
+            getUserById(userId, (result) => {
                 setUser(result);
                 navigate(`/translation/${userId}`);
             })
         }else{
             
-            fetch(`${apiUrl}/translations`, {
+            /* fetch(`${apiUrl}/translations`, {
                 method: 'POST',
                 headers: {
                     'X-API-Key': apiKey,
@@ -66,7 +66,14 @@ const Login = () => {
                 // Handle error
                 console.log("error bitch")
                 alert("Error")
-            })
+            }) */
+
+            postUserByName(name.value, (newUser) => {
+                console.log(`newUser:${newUser}`);
+                localStorage.setItem(name.value, newUser.id);
+                setUser(newUser);
+                navigate(`/translation/${newUser.id}`);
+            });
         }
 
     }
