@@ -1,6 +1,7 @@
 import './App.css';
-
-import {Routes, Route} from 'react-router-dom'
+import { useContext } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { UserContext } from './contexts/user.context';
 
 // Import Route Components
 import Navigation from './routes/navigation/navigation.component';
@@ -16,14 +17,19 @@ import Profile from './routes/profile/profile.component';
 
 */
 function App() {
+
+  const { user } = useContext(UserContext);
   return (
     <Routes>
-      <Route path='/' element={<Navigation/>}>
-        <Route index element={<Login/>}/>
-        
-           <Route path='/translation/:userId' element={<Translation/>}/>
-      
-        <Route path='/profile/:userId' element={<Profile/>}/>
+      <Route path='/' element={<Navigation />}>
+        <Route index element={<Login />} />
+        {
+          user && <Route path='/translation/:userId' element={<Translation />} />
+        }
+        {
+          user && <Route path='/profile/:userId' element={<Profile />} />
+        }
+        <Route path='*' element={<Navigate to='/' replace />} />
       </Route>
     </Routes>
   );

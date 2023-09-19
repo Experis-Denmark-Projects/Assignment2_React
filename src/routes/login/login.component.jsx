@@ -1,14 +1,26 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useContext } from "react"
-import {ReactComponent as KeyboardIcon} from '../../assets/keyboard-solid.svg'
+import { useState, useContext, useEffect } from "react"
+import { ReactComponent as KeyboardIcon } from '../../assets/keyboard-solid.svg'
 import { IconContainer } from "./login.styles";
 import { UserContext } from "../../contexts/user.context";
 import { getUserById, postUserByName } from "../../utils/web-api.util";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
 
-    const [ name, setName ] = useState({ value: "" })
+    const { register, handleSubmit, setError, formState: { errors } } = useForm();
+
+    const [name, setName] = useState({ value: "" })
     const navigate = useNavigate();
+    /* 
+        useEffect(() => {
+            setError('username', {
+                types: {
+                    required: 'username is required',
+                    minLength: 'username should be at least 5 characters'
+                }
+            })
+        }, [setError]) */
 
     // Handler to update local state
     const handleNameChange = event => {
@@ -23,12 +35,12 @@ const Login = () => {
         /* If the User Id is stored locally navigate to translation page
         *  Otherwise, add a new user.
         */
-        if(userId){
+        if (userId) {
             getUserById(userId, (result) => {
                 setUser(result);
                 navigate(`/translation/${userId}`);
             })
-        }else{
+        } else {
             postUserByName(name.value, (newUser) => {
                 console.log(`newUser:${newUser}`);
                 localStorage.setItem(name.value, newUser.id);
@@ -38,34 +50,19 @@ const Login = () => {
         }
     }
 
-    return(
-        <div>
-            <form onSubmit={ handleRegisterSubmit }>
+    return (
+        <form onSubmit={handleSubmit(handleRegisterSubmit)}>
             <IconContainer>
-                <KeyboardIcon/>
+                <KeyboardIcon />
             </IconContainer>
-                <input type="text" value={ name.value } onChange={ handleNameChange } />
-                <button type="submit">Login</button>
-            </form>
-            {/* 
-            const { register, handleSubmit,  formState: { errors } } = useForm()
+            <input {...register('username', {
+                required: true,
+                minLength: 5,
+            })} type="text" value={name.value} onChange={handleNameChange} />
+            <button type="submit">Login</button>
+            {errors.username && <p> username is required</p>}
 
-            // data - Inputs in form with values
-            const onSubmit = data => { ... }
-
-            // username is required and must be at least 3 characters
-            return (
-                <form onSubmit={ handleSubmit(onSubmit) }>
-
-                    <input {...register("username", {
-                        required: true,
-                        minLength: 3
-                    })} type="text" />
-
-                    { errors.username && <p>Username is required</p> }
-                </form>
-            ) */}
-        </div>
+        </form>
     );
 }
 
