@@ -6,6 +6,7 @@ import { TranslationIconContainer } from "../../components/translation-icon/tran
 import { useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
 import { putUser } from "../../utils/web-api.util";
+import TranslationBox from "../../components/translation-box/translation-box.component";
 
 const Translation = () => {
     
@@ -34,7 +35,7 @@ const Translation = () => {
         const images = [];
         idCounter = 0;
         for(let i = 0; i < word.value.length; i++){
-            images.push({id: word.value.toLowerCase().charAt(i)});
+            images.push({id: word.value.toLowerCase().charAt(i), key: `${word.value.toLowerCase().charAt(i)}${idCounter++}}`});
         }
         setIcons(images);
 
@@ -56,11 +57,13 @@ const Translation = () => {
                 <button type="submit">Translate</button>
             </form>
             {   
-                <TranslationIconContainer>
-                    {icons.map((image) => 
-                        image && <TranslationIcon key={`${image.id}${idCounter++}`} image={image}/>
-                    )}
-                </TranslationIconContainer>
+                <TranslationBox props={{icons: icons}}>
+                    {/* <TranslationIconContainer>
+                        {icons.map((image) => 
+                            image && <TranslationIcon key={`${image.id}${idCounter++}`} image={image}/>
+                        )}
+                    </TranslationIconContainer> */}
+                </TranslationBox>
             }
         </Fragment>
     );
