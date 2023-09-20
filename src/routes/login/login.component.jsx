@@ -83,6 +83,7 @@ const Login = () => {
             }
         },
         placeholder: 'Enter username',
+        buttonText: 'Login',
         requirements: {
             required: true,
             minLength: 5,
@@ -99,16 +100,5 @@ const Login = () => {
     );
 }
 
- /* <form onSubmit={handleSubmit(handleRegisterSubmit)}>
-            <IconContainer>
-                <KeyboardIcon />
-            </IconContainer>
-            <input {...register('username', {
-                required: true,
-                minLength: 5,
-            })} placeholder="Enter username" type="text" value={name.value} onChange={handleNameChange}/>
-            <button type="submit">Login</button>
-            {errors.username && <p> username is required</p>}
-        </form> */
 
 export default Login;

@@ -7,5 +7,5 @@ export const TranslationBoxContainer = styled.div`
     border-style: solid;
     border-color: #000000;
     background-color: #E9FFFB;
-    opacity: 0.5;
+    
 `;

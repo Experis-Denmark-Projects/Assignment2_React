@@ -24,7 +24,7 @@ const FormInput = ({ props }) => {
             console.log(`error:${error.message}`);
         }
     }
-    
+    /*
     useEffect(() => {
         setError('text', {
             types: {
@@ -33,7 +33,7 @@ const FormInput = ({ props }) => {
             }
         })
     }, []);
-
+*/
     return(
         <FormInputContainer>
             <form onSubmit={handleSubmit(handleInputSubmit)}>
@@ -44,7 +44,7 @@ const FormInput = ({ props }) => {
                 value={text.value}
                 onChange={handleTextChange} 
                 viewBox='0 0 600 600'/>
-                <button type="submit">Login</button>
+                <button type="submit">{props.buttonText}</button>
             </form>
         </FormInputContainer>
     );

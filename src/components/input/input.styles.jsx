@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const IconContainer = styled.div`
     width: 45px;
-    height 45px;
+    height: 45px;
     position: relative;
     display: flex;
     align-items: center;

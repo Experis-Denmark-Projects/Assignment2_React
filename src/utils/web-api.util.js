@@ -76,10 +76,33 @@ export const putUser = (userId, translations, callback) => {
         return response.json();
     })
     .then(updatedUser => {
-        console.log(`translations for the user ${updatedUser.username}: ${updatedUser.translations}`);
         callback(updatedUser);
     })
     .catch(error => {
         console.log(`The following error occured: ${error}`)
     });
 } 
+
+export const deleteUserById = (userId) => {
+    fetch(`${apiUrl}/translations/${userId}`,{
+        method: 'PATCH',
+        headers: {
+            'X-API-Key': apiKey,
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(response => {
+        if(!response.ok) {
+            
+            throw new Error('Could not create user')
+        }
+        
+        return response.json();
+    })
+    .then(updatedUser => {
+        
+    })
+    .catch(error => {
+        console.log(`The following error occured: ${error}`)
+    });
+}
