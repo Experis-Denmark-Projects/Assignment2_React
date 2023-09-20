@@ -54,8 +54,33 @@ const Login = () => {
     
      */
     const props = {
-        callback: () => {
-            //console.log(`Hello From Login!`);
+        callback: (text) => {
+            try{
+                const userId = localStorage.getItem(`${text}`);
+                /* If the User Id is stored locally navigate to translation page
+                *  Otherwise, add a new user.
+                */
+                if (userId) 
+                {
+                    getUserById(userId, (result) => {
+                        setUser(result);
+                        navigate(`/translation/${userId}`);
+                    })
+                } 
+                else 
+                {
+                    postUserByName(text, (newUser) => {
+                        console.log(`newUser:${newUser}`);
+                        localStorage.setItem(text, newUser.id);
+                        setUser(newUser);
+                        navigate(`/translation/${newUser.id}`);
+                    });
+                }
+            } 
+            catch(error)
+            {
+                console.log(`error:${error.message}`);
+            }
         },
         placeholder: 'Enter username',
         requirements: {

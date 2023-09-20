@@ -25,7 +25,7 @@ const Translation = () => {
     
     const handleRegisterSubmit = event => {
         event.preventDefault();
-        console.log(word.value)
+        console.log(`translations:${[...user.translations]}`);
         if(!word.value.toLowerCase().match('^[a-z]+$')){
             alert("Please only lower case letters");
             return;

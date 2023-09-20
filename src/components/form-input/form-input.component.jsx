@@ -19,7 +19,7 @@ const FormInput = ({ props }) => {
     const handleInputSubmit = async (data, event) => {
         event.preventDefault();
         try{
-            props.callback();
+            props.callback(text.value);
         }catch(error){
             console.log(`error:${error.message}`);
         }
@@ -36,8 +36,8 @@ const FormInput = ({ props }) => {
 
     return(
         <FormInputContainer>
-                <KeyboardIcon viewBox="0 0 600 600"/>
             <form onSubmit={handleSubmit(handleInputSubmit)}>
+                <KeyboardIcon viewBox="0 0 600 600"/>
                 <input {...register('text', props.requirements)}
                 placeholder={props.placeholder}
                 type="text"
