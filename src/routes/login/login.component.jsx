@@ -5,6 +5,7 @@ import { IconContainer } from "./login.styles";
 import { UserContext } from "../../contexts/user.context";
 import { getUserById, postUserByName } from "../../utils/web-api.util";
 import { useForm } from "react-hook-form";
+import FormInput from "../../components/form-input/form-input.component";
 
 const Login = () => {
 
@@ -12,58 +13,77 @@ const Login = () => {
 
     const [name, setName] = useState({ value: "" })
     const navigate = useNavigate();
-    /* 
-        useEffect(() => {
-            setError('username', {
-                types: {
-                    required: 'username is required',
-                    minLength: 'username should be at least 5 characters'
-                }
-            })
-        }, [setError]) */
 
     // Handler to update local state
     const handleNameChange = event => {
-        setName({ value: event.target.value })
+        setName({ value: event.target.value })   
     }
 
-    const { user, setUser } = useContext(UserContext);
+    const { setUser } = useContext(UserContext);
     // Handle the form submission.
-    const handleRegisterSubmit = async event => {
+    const handleRegisterSubmit = async (data, event) => {
         event.preventDefault();
-        const userId = localStorage.getItem(`${name.value}`);
-        /* If the User Id is stored locally navigate to translation page
-        *  Otherwise, add a new user.
-        */
-        if (userId) {
-            getUserById(userId, (result) => {
-                setUser(result);
-                navigate(`/translation/${userId}`);
-            })
-        } else {
-            postUserByName(name.value, (newUser) => {
-                console.log(`newUser:${newUser}`);
-                localStorage.setItem(name.value, newUser.id);
-                setUser(newUser);
-                navigate(`/translation/${newUser.id}`);
-            });
+        try{
+            const userId = localStorage.getItem(`${name.value}`);
+            /* If the User Id is stored locally navigate to translation page
+            *  Otherwise, add a new user.
+            */
+            if (userId) 
+            {
+                getUserById(userId, (result) => {
+                    setUser(result);
+                    navigate(`/translation/${userId}`);
+                })
+            } 
+            else 
+            {
+                postUserByName(name.value, (newUser) => {
+                    console.log(`newUser:${newUser}`);
+                    localStorage.setItem(name.value, newUser.id);
+                    setUser(newUser);
+                    navigate(`/translation/${newUser.id}`);
+                });
+            }
+        } 
+        catch(error)
+        {
+            console.log(`error:${error.message}`);
         }
     }
-
+    /*
+    
+     */
+    const props = {
+        callback: () => {
+            //console.log(`Hello From Login!`);
+        },
+        placeholder: 'Enter username',
+        requirements: {
+            required: true,
+            minLength: 5,
+        },
+        errorMessages: {
+            required: 'Username is required',
+            minLength: 'Username must be at least 5 characters long.'
+        }
+    }
     return (
-        <form onSubmit={handleSubmit(handleRegisterSubmit)}>
+
+        <FormInput props={props}/>
+       
+    );
+}
+
+ /* <form onSubmit={handleSubmit(handleRegisterSubmit)}>
             <IconContainer>
                 <KeyboardIcon />
             </IconContainer>
             <input {...register('username', {
                 required: true,
                 minLength: 5,
-            })} type="text" value={name.value} onChange={handleNameChange} />
+            })} placeholder="Enter username" type="text" value={name.value} onChange={handleNameChange}/>
             <button type="submit">Login</button>
             {errors.username && <p> username is required</p>}
-
-        </form>
-    );
-}
+        </form> */
 
 export default Login;

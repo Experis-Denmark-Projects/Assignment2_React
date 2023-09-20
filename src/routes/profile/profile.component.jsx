@@ -13,31 +13,15 @@ const Profile = () => {
     let icons = [];
     const translations = [...user.translations];
 
-    //let idCounter = 0;
     for(let i = 0; i < translations.length; i++){
         if(i === 10) break;
         let temp =  [];
         for(let k =0; k < translations[i].length; k++){
             temp.push({id: translations[i].charAt(k)});
-            //console.log(`i: ${temp[3].id}`);
         }   
         icons.push(temp);
-
-        //console.log(`icons: ${icons}`);
     }   
 
-    for(let i = 0; i < icons.length; i++){
-        console.log(icons[i]);
-    }
-    
-    /*
-    [
-        [{id: 'a'}, {id: 'b'}, {id: 'c'}], // word 1
-        [{id: 'a'}, {id: 'b'}, {id: 'c'}], // word 2
-        [{id: 'e'}, {id: 'f'}, {id: 'g'}], // word 3
-    ]
-    
-    */
     let idCounter = 0;
     return(
        <Fragment>
@@ -50,7 +34,7 @@ const Profile = () => {
                             {
                                 word.map((image) => 
                                     image !== undefined && image !== null && 
-                                    <div>
+                                    <div key={idCounter}>
                                         <TranslationIcon key={`${image.id}${idCounter++}`} image={image}/>
                                         <p>{image.id}</p>
                                     </div>
