@@ -6,11 +6,12 @@ import { TranslationBoxContainer } from "./translation-box.styles";
 const TranslationBox = ({props}) => {
     const { icons } = props;
     let idCounter = 0;
-    console.log(`Hello from translation box`);
+
     return(
-        <div>
+        <Fragment>
             <TranslationBoxContainer>
                 {
+                    
                     icons.length > 0 && 
                     icons.map(word => 
                         <TranslationIconContainer key={`${idCounter}`}>
@@ -22,13 +23,18 @@ const TranslationBox = ({props}) => {
                                         <p>{image.id}</p>
                                         
                                     </div>
+                                    
                                 )
                             }
                         </TranslationIconContainer>   
+                        
                     )
                 }
+                
             </TranslationBoxContainer>
-        </div>
+        </Fragment>
+            
+    
     );
 }
 

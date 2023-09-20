@@ -8,6 +8,7 @@ import { UserContext } from "../../contexts/user.context";
 import { putUser } from "../../utils/web-api.util";
 import TranslationBox from "../../components/translation-box/translation-box.component";
 import FormInput from "../../components/form-input/form-input.component";
+import './translation.css'
 
 const Translation = () => {
     
@@ -87,15 +88,16 @@ const Translation = () => {
 
     return(
         <Fragment>
-            <p>Translations</p>
-            <form onSubmit={ handleRegisterSubmit }>
+            <h1 className="headline">Translations</h1>
+
+            <form className="formBox" onSubmit={ handleRegisterSubmit }>
                 <IconContainer>
                     <KeyboardIcon/>
                 </IconContainer>
                 <input type="text" value={ word.value } onChange={ handleWordChange } />
-                <button type="submit">Translate</button>
+                <button className="submitBtn" type="submit">Translate</button>
             </form> 
-            { icons.length > 1 && <TranslationBox props={{icons: icons}}/>}
+            <TranslationBox props={{icons: icons}}/>
         </Fragment>
     );
 };

@@ -5,6 +5,7 @@ import TranslationIcon  from "../../components/translation-icon/translation-icon
 import TranslationBox from "../../components/translation-box/translation-box.component";
 import { putUser, deleteUserById } from "../../utils/web-api.util";
 import { useNavigate } from "react-router-dom";
+import './profile.css';
 
 const Profile = () => {
 
@@ -43,12 +44,17 @@ const Profile = () => {
     return(
        <Fragment>
     
-            {(icons.length > 0 &&
-            <TranslationBox props={{icons: icons}}/>)}
-            <hr class="solid"></hr>
-            {icons.length> 0 && <button onClick={onClearTranslations}>Clear Translations</button>}
-            <button onClick={() => navigate(`/translation/${user.id}`)}>Back</button>
-            <button onClick={onLogout   }>Logout</button>
+            {(icons.length > 0 &&<TranslationBox props={{icons: icons}}/>)}
+
+            <div className="buttonDiv">
+                <button className="backBtn" onClick={() => navigate(`/translation/${user.id}`)}>Back</button> 
+                <div className="dangerBtns">
+                    {icons.length> 0 && <button className="clearBtn" onClick={onClearTranslations}>Clear Translations</button>}
+                    <button className="logOutBtn" onClick={onLogout   }>Logout</button>
+                </div>
+
+            </div>
+
        </Fragment>
     );
 };

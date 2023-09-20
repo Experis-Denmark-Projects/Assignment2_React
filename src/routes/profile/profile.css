@@ -1,0 +1,26 @@
+.buttonDiv{
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.clearBtn{
+background-color: red;
+
+}
+
+.backBtn{
+    
+}
+
+.logOutBtn{
+    margin-left: 10px;
+    
+}
+
+.dangerBtns{
+
+}
+
+
