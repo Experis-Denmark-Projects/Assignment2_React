@@ -25,8 +25,6 @@ In the project all of the components have been created such that they could be r
 Therefore, the components serve as the building block of the page components in the routes directory. In the index.js file the App component is wrapped inside of the UserProvider which allows all its children to gain access to the user object state using react's useContext. Thus, the components can set and get the user object. Additionally, the components all use functions inside of the web-api.js to set and get the user from the web API. Lastly, some of the components import images files from the assets directory.
 
 ## Project Setup
-Click on the link to run the application via Github pages:
-
 Runnin the project on a locale machine require the following steps:
 1. Clone the repository from the main branch.
 2. Open the project in a javascript editor. E.g. Visual Studio Code.
@@ -39,6 +37,7 @@ The following Dependencies must be installed using Node Package Manager (npm):
  - react-hook-form
 
 ## Run Instrucions
+Follow these instructions to run the application locally.
 1. In the terminal run 'npm start'.
 2. Go to the following 'http://localhost:3000' path in a web browser. 
 
