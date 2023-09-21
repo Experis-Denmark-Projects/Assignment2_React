@@ -1,14 +1,11 @@
-import { useState, Fragment, useEffect } from "react";
-import {ReactComponent as KeyboardIcon} from '../../assets/keyboard-solid.svg'
-import { IconContainer } from "../../components/input/input.styles";
-import TranslationIcon  from "../../components/translation-icon/translation-icon.component"
-import { TranslationIconContainer } from "../../components/translation-icon/translation-icon.styles";
+import { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
 import { putUser } from "../../utils/web-api.util";
 import TranslationBox from "../../components/translation-box/translation-box.component";
 import FormInput from "../../components/form-input/form-input.component";
 import './translation.css'
+import { TranslationContainer } from "./translation.style";
 
 const Translation = () => {
     
@@ -18,45 +15,23 @@ const Translation = () => {
     * passed to the key attribute in TranslationIcon.
     */
     let idCounter = 0;
-    const [word, setWord] = useState({value: ""});
     let [icons, setIcons] = useState([]);
+    // Destructuring user & setUser from UserContext.
     const { user, setUser } = useContext(UserContext);
 
-    const handleWordChange = event => {
-        setWord({ value: event.target.value})
-    }
-    
-    const handleRegisterSubmit = event => {
-        event.preventDefault();
-        if(!word.value.toLowerCase().match('^[a-z]+$')){
-            alert("Please only lower case letters");
-            return;
-        }
-        icons = [];
-        const images = [];
-        idCounter = 0;
-        for(let i = 0; i < word.value.length; i++){
-            images.push({id: word.value.toLowerCase().charAt(i), key: `${word.value.toLowerCase().charAt(i)}${idCounter++}}`});
-        }
-        const temp = [];
-        temp.push(images);
-        setIcons(temp);
-
-        if(user){
-            putUser(user.id, [...user.translations, word.value], (updatedUser) => {
-                setUser(updatedUser);
-            });
-        }
-    }
-
+    /* The props object contains all the values that the FormInput component must receive to 
+     * to customize its funcionality. Especially, the callback method which will be invoked when
+     * the Translation button is clicked.
+    */
     const props = {
+        // text is the 
         callback: (text) => {
             try{
+                // The text parameter is the text input from the FormInput component.
                 if(!text.toLowerCase().match('^[a-z]+$')){
                     alert("Please only lower case letters");
                     return;
                 }
-                icons = [];
                 const images = [];
                 idCounter = 0;
                 for(let i = 0; i < text.length; i++){
@@ -74,12 +49,15 @@ const Translation = () => {
                 console.log(`error:${error.message}`);
             }
         },
+        // placeholder & buttonText are the text of the input field and button in the FormInput compoennt respectively.
         placeholder: 'Enter word',
         buttonText: 'Translate',
+        // These are the requirements used in the FormInput component.
         requirements: {
             required: true,
             minLength: 1,
         },
+        // These are the error messages used in the FormInput component corresponding to the requirements above.
         errorMessage: {
             required: 'Word is required',
             minLength: 'Word must be at least 1 chacter long.'
@@ -87,18 +65,14 @@ const Translation = () => {
     }
 
     return(
-        <Fragment>
+        <TranslationContainer>
             <h1 className="headline">Translations</h1>
-
-            <form className="formBox" onSubmit={ handleRegisterSubmit }>
-                <IconContainer>
-                    <KeyboardIcon/>
-                </IconContainer>
-                <input type="text" value={ word.value } onChange={ handleWordChange } />
-                <button className="submitBtn" type="submit">Translate</button>
-            </form> 
+            <FormInput props={props}/>
+            {/* The TranslationBox component contains the hand icon representation
+              * of the word being translated. Therefore, it receives the icons array.
+            */}
             <TranslationBox props={{icons: icons}}/>
-        </Fragment>
+        </TranslationContainer>
     );
 };
 
