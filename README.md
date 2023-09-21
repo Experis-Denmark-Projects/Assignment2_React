@@ -10,6 +10,9 @@ Furthermore, the user can also navigate to a profile page which displays 10 of t
 On this page the user is also able to navigate back to the translation page, clear all the stored translations and sign out. 
 When the user signs out all the stored translations are removed.
 
+## Vercel link - See the app working
+https://assignment2-react-53il.vercel.app/
+
 ## Project Structure 
 The source code of the project is structured in the following way:
  - assets directory: contains all the icons used in the application.
