@@ -1,7 +1,6 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Fragment, useContext } from 'react';
 import { UserContext } from '../../contexts/user.context';
-import { NavigationContainer } from './navigation.style';
 import './navigation.css';
 
 /* This component is the top bar navigation existing on all pages.*/

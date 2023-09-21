@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import TranslationIcon from "../translation-icon/translation-icon.component";
 import { TranslationIconContainer } from "../translation-icon/translation-icon.styles";
 import { TranslationBoxContainer } from "./translation-box.styles";
