@@ -11,9 +11,6 @@ import { IconContainer } from "./input.styles";
             <input type="text" name="name" />
             <input type="submit" value="Submit" />
         </div>
-
-        
-    
     );
 };
 

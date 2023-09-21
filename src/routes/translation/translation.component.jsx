@@ -27,19 +27,35 @@ const Translation = () => {
         // text is the 
         callback: (text) => {
             try{
-                // The text parameter is the text input from the FormInput component.
+                /* The text parameter is the text input from the FormInput component.
+                 * The if statement below checks if text input does not contain any lowercase letters from a-z.
+                 * In that case the method should return since the images in the 'assets/individual_signs' directory 
+                 * has a name from a-z.
+                */
                 if(!text.toLowerCase().match('^[a-z]+$')){
                     alert("Please only lower case letters");
                     return;
                 }
+                /* The images array appends an object for each character in the text input.
+                 * Each object has an id which is the character of text abd a unique key
+                 * that combines the character with an incrementing idCounter. Thus, the key 
+                 * can be passed to an html element to ensure each html element has a unique key (html id).
+                */
                 const images = [];
                 idCounter = 0;
                 for(let i = 0; i < text.length; i++){
                     images.push({id: text.toLowerCase().charAt(i), key: `${text.toLowerCase().charAt(i)}${idCounter++}}`});
                 }
+                /* A temporary array is used to append the images array 
+                 * because the TranslationBox component expects a nested array.
+                */
                 const temp = [];
                 temp.push(images);
                 setIcons(temp);
+                /* If the user is not equal to null then a put request is send to the web API
+                 * using the user id with the current user translations and the most recent text entered.
+                 * Then the user context is set to the new user received from the web API.
+                */
                 if(user){
                     putUser(user.id, [...user.translations, text], (updatedUser) => {
                         setUser(updatedUser);

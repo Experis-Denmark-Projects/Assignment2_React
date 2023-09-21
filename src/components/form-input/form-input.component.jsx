@@ -1,21 +1,23 @@
 import { useForm } from "react-hook-form";
 import { FormInputContainer } from "./form-input.style"
-import { useEffect, useState } from "react";
-import { IconContainer } from "../../routes/login/login.styles";
+import { useState } from "react";
 import { ReactComponent as KeyboardIcon } from '../../assets/keyboard-solid.svg'
 
 const FormInput = ({ props }) => {
     // criteriaMode: 'all' means show all error messages at once.
-    const { register, handleSubmit, setError, formState: {errors} } = useForm({criteriaMode: 'all'});
+    const { register, handleSubmit, formState: {errors} } = useForm({criteriaMode: 'all'});
 
+    // useState, with a default value of empty string, hooks the text variable.
     const[text, setText] = useState({value: ""});
-    const { errorMessages } = props;
 
-    // Handler to update local state
+    // This function is invoked when the text in the inout element is changed.
     const handleTextChange = event => {
         setText({ value: event.target.value });   
     }
 
+    /*This function tries to invoke the callback function
+     * from the props object passing the text variable as an argument.
+    */
     const handleInputSubmit = async (data, event) => {
         event.preventDefault();
         try{
@@ -24,16 +26,12 @@ const FormInput = ({ props }) => {
             console.log(`error:${error.message}`);
         }
     }
-    /*
-    useEffect(() => {
-        setError('text', {
-            types: {
-                required: 'This is required',
-                minLength: 'Input is too short'            
-            }
-        })
-    }, []);
-*/
+
+    /* This component returns a form input with a keyboard icon, an input field and a submit button.
+     * Input requirements, placeholder -and button text is determined by the properties of the props object received.
+     * The value of the input field is the value of the hooked text variable.
+     * Additionally, the handleInputSubmit function is invoked when clicking the button. 
+    */
     return(
         <FormInputContainer>
             <form onSubmit={handleSubmit(handleInputSubmit)}>
@@ -51,10 +49,3 @@ const FormInput = ({ props }) => {
 }
 
 export default FormInput;
-
-/*
-<img src={require('../../assets/keyboard-solid.svg')} alt=''/>
-Object.keys(errors.text.types).forEach((k, v) => {
-                                <p key={k}>{v}</p>
-                            })
- */
